@@ -7,7 +7,7 @@
     "strict": true,
     "noImplicitOverride": true,
     "paths": {
-      "game-engine-lib": [
+      "@game-engine-lib": [
         "./dist/game-engine-lib"
       ]
     },
