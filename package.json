@@ -1,6 +1,12 @@
 {
   "name": "cross-platform-monorepo",
   "version": "0.0.0",
+  "description": "Cross-platform monorepo Angular app",
+  "author": {
+    "name": "your name",
+    "email": "your@email.address"
+  },
+  "main": "main.js",
   "scripts": {
     "ng": "ng",
     "serve:ssr:tetris": "node dist/tetris/server/server.mjs",
@@ -13,7 +19,14 @@
     "build:game-engine-lib": "ng build game-engine-lib --watch",
     "test:game-engine-lib": "ng test game-engine-lib",
     "lint:game-engine-lib": "ng lint game-engine-lib",
-    "e2e:game-engine-lib": "ng e2e game-engine-lib"
+    "e2e:game-engine-lib": "ng e2e game-engine-lib",
+    "start": "npm-run-all -p electron:serve start:tetris",
+    "electron:serve-tsc": "tsc -p tsconfig.serve.json",
+    "electron:serve": "wait-on tcp:4200 && npm run electron:serve-tsc && npx electron . --serve",
+    "postinstall": "electron-builder install-app-deps",
+    "build": "npm run electron:serve-tsc && ng build tetris --base-href ./",
+    "build:prod": "npm run build -- -c production",
+    "electron:package": "npm run build:prod && electron-builder build"
   },
   "private": true,
   "dependencies": {
@@ -27,10 +40,14 @@
     "@angular/platform-server": "^17.1.0",
     "@angular/router": "^17.1.0",
     "@angular/ssr": "^17.1.3",
+    "@electron/remote": "^2.1.2",
+    "electron-reload": "^2.0.0-alpha.1",
     "express": "^4.18.2",
     "ng-zzfx": "^0.0.6",
+    "npm-run-all": "^4.1.5",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "wait-on": "^7.2.0",
     "zone.js": "~0.14.3"
   },
   "devDependencies": {
@@ -40,6 +57,8 @@
     "@types/express": "^4.17.17",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^18.18.0",
+    "electron": "^28.2.3",
+    "electron-builder": "^24.9.1",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
