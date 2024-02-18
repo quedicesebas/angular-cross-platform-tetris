@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Cross-platform Tetris game</string>
+    <string name="title_activity_main">Cross-platform Tetris game</string>
+    <string name="package_name">co.angular.crossplatformtetris</string>
+    <string name="custom_url_scheme">co.angular.crossplatformtetris</string>
+</resources>
