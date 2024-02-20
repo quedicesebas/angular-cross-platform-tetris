@@ -16,7 +16,7 @@ export class CapacitorStorageService {
 
   async get(key: string): Promise<any> {
     const item = await Preferences.get({ key: key });
-    return JSON.parse(item.value || '');
+    return item ? JSON.parse(item.value!) : null;
   }
 
   async remove(key: string): Promise<void> {
