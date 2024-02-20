@@ -19,9 +19,9 @@ import {
 } from '../../constants';
 import { Zoundfx } from 'ng-zzfx';
 import { IPiece, PieceComponent } from '../piece/piece.component';
-import { GameEngineLibService } from '../../services/game-engine-lib.service';
 import { CommonModule } from '@angular/common';
-// import { CapacitorStorageService } from '@shared-lib';
+import { CapacitorStorageService } from '@shared-lib';
+import { GameEngineLibService } from '../../services/game-engine-lib.service';
 
 @Component({
   selector: 'game-board',
@@ -81,12 +81,13 @@ export class BoardComponent implements OnInit {
   }
 
   constructor(
-    private service: GameEngineLibService //private capStorageService: CapacitorStorageService
+    private service: GameEngineLibService,
+    private capacitorStorageService: CapacitorStorageService
   ) {}
 
   async ngOnInit() {
-    // const highscore = await this.localStorageGet('highscore');
-    // highscore ? (this.highScore = highscore) : (this.highScore = 0);
+    const highscore = await this.localStorageGet('highscore');
+    highscore ? (this.highScore = highscore) : (this.highScore = 0);
     this.initBoard();
     this.initSound();
     this.initNext();
@@ -305,9 +306,10 @@ export class BoardComponent implements OnInit {
   gameOver() {
     this.gameStarted = false;
     cancelAnimationFrame(this.requestId);
-    // this.highScore =
-    //   this.points > this.highScore ? this.points : this.highScore;
-    // this.localStorageSet('highscore', this.highScore);
+    this.highScore =
+      this.points > this.highScore ? this.points : this.highScore;
+    this.localStorageSet('highscore', this.highScore);
+    this.ctx.fillStyle = 'black';
     this.ctx.fillStyle = 'black';
     this.ctx.fillRect(1, 3, 8, 1.2);
     this.ctx.font = '1px Arial';
@@ -319,11 +321,11 @@ export class BoardComponent implements OnInit {
     return Array.from({ length: ROWS }, () => Array(COLS).fill(0));
   }
 
-  // async localStorageGet(key: string): Promise<any> {
-  //   return await this.capStorageService.get(key);
-  // }
+  async localStorageGet(key: string): Promise<any> {
+    return await this.capacitorStorageService.get(key);
+  }
 
-  // localStorageSet(key: string, value: any): void {
-  //   this.capStorageService.set(key, value);
-  // }
+  localStorageSet(key: string, value: any): void {
+    this.capacitorStorageService.set(key, value);
+  }
 }

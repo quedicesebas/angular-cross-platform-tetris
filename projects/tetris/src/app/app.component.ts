@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { BoardComponent, GameEngineLibService } from '@game-engine-lib';
-import { ElectronService } from './core/services/electron.service';
+import { ElectronService } from '@shared-lib';
 
 @Component({
   selector: 'app-root',

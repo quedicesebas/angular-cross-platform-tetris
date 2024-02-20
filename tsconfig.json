@@ -9,6 +9,9 @@
     "paths": {
       "@game-engine-lib": [
         "./dist/game-engine-lib"
+      ],
+      "@shared-lib": [
+        "./dist/shared-lib"
       ]
     },
     "noPropertyAccessFromIndexSignature": true,
