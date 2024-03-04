@@ -12,9 +12,7 @@
       <canvas #next class="next"></canvas>
     </div>
     <div class="button-container">
-      <button (click)="play()" class="play-button button" *ngIf="!gameStarted">
-        Play
-      </button>
+      @if (gameStarted) {
       <button
         (click)="gameOver()"
         class="reset-button button"
@@ -22,6 +20,9 @@
       >
         Reset
       </button>
+      } @else {
+      <button (click)="play()" class="play-button button">Play</button>
+      }
       <button
         (click)="pause()"
         class="pause-button button"
